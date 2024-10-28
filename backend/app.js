@@ -52,11 +52,13 @@ app.use(
 
 // CORS settings
 app.use(
-  cors({
-    origin: "https://job-gate-repo-1-y6fv.vercel.app", // frontend URL
-    credentials: true,
-  })
+  cors()
 );
+
+// {
+//     origin: "https://job-gate-repo-1-y6fv.vercel.app", // frontend URL
+//     credentials: true,
+//   }
 
 // app.use((req, res, next) => {
 //   res.header("Access-Control-Allow-Origin", "http://localhost:5173"); // Adjust as needed
