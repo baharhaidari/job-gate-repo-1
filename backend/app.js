@@ -26,8 +26,10 @@ const app = express();
 
 const server = http.createServer(app);
 const io = new Server(server, {
-  cors: {
-    origin: "https://job-gate-repo-1-y6fv.vercel.app",
+ cors: {
+    origin: "https://job-gate-repo-1-y6fv.vercel.app", // frontend URL
+    methods: ["GET", "POST"], // allowed methods if needed
+    credentials: true, // Required for cookie usage
   },
 });
 
@@ -52,7 +54,11 @@ app.use(
 
 // CORS settings
 app.use(
-  cors()
+  cors({
+    origin: "https://job-gate-repo-1-y6fv.vercel.app", // Updated frontend URL
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  })
 );
 
 // {
