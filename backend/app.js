@@ -53,8 +53,7 @@ app.use(
 // CORS settings
 app.use(
   cors({
-    origin: "https://job-gate-repo-1.vercel.app", // Your frontend URL
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    origin: "https://job-gate-repo-1.vercel.app", // frontend URL
     credentials: true,
   })
 );
