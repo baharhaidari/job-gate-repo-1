@@ -21,7 +21,7 @@ export default function Hero() {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/user/get-users",
+        "https://job-gate-repo-1-2.onrender.com/api/user/get-users",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -35,7 +35,7 @@ export default function Hero() {
   const fetchJobs = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/user/get-today-jobs",
+        "https://job-gate-repo-1-2.onrender.com/api/user/get-today-jobs",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
