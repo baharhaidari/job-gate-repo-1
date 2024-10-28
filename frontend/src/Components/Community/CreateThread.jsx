@@ -94,7 +94,7 @@ const CreateThread = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://localhost:5000/api/community/thread",
+        "https://job-gate-repo-1-2.onrender.com/api/community/thread",
         { content },
         {
           headers: { Authorization: `Bearer ${token}` },
