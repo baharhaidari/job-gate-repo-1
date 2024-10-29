@@ -60,7 +60,7 @@ router.post(
     try {
       // Fetch job details from the jobs table
       const jobResult = await pool.query(
-        "SELECT title, location, description, skills, created_at FROM jobs WHERE job_id = $1",
+        "SELECT title, location, description, skills, created_at FROM jobs WHERE id = $1",
         [jobId]
       );
 
