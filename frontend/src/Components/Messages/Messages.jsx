@@ -117,11 +117,12 @@ export default function Messages() {
                   className="flex items-center p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-200"
                   onClick={() => setSelectedChat(contact)}
                 >
-                  <img
-                    src={`https://job-gate-repo-1-2.onrender.com/${contact.profile_picture}` || "/default-avatar.png"}
-                    alt={contact.username}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
+                <img
+                  src={contact.profile_picture ? `https://job-gate-repo-1-2.onrender.com/${contact.profile_picture}` : "/default-avatar.png"}
+                  alt={contact.username}
+                  className="w-12 h-12 rounded-full object-cover"
+                />
+
                   <div className="ml-3">
                     <p className="font-semibold">{contact.username}</p>
                   </div>
@@ -136,7 +137,7 @@ export default function Messages() {
             <>
               <div className="flex items-center p-4 border-b border-gray-300">
                 <img
-                  src={`https://job-gate-repo-1-2.onrender.com/${selectedChat.profile_picture}`}
+                  src={selectedChat.profile_picture ? `https://job-gate-repo-1-2.onrender.com/${selectedChat.profile_picture}` : "/default-avatar.png"}
                   alt={selectedChat.username}
                   className="w-12 h-12 rounded-full object-cover"
                 />
