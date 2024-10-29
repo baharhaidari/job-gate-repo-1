@@ -21,7 +21,7 @@ const ContactPage = () => {
       const token = localStorage.getItem("token");
       // Send form data directly
       const response = await axios.post(
-        "http://localhost:5000/api/contact",
+        "https://job-gate-repo-1-2.onrender.com/api/contact",
         formData, // <-- send formData directly, not wrapped in an object
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -77,7 +77,7 @@ const ContactPage = () => {
           </div>
           <div className="flex gap-4 mt-8">
             <a
-              href="https://www.linkedin.com/company/yourcompany"
+              href="https://www.linkedin.com/in/bahar-haidari-24b550254/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-blue-600"
@@ -85,7 +85,7 @@ const ContactPage = () => {
               LinkedIn
             </a>
             <a
-              href="https://twitter.com/yourcompany"
+              href="https://x.com/bahar_h1"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-blue-400"
