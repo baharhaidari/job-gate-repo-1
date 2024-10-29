@@ -168,7 +168,10 @@ io.on("connection", (socket) => {
 
 app.get("/api/contacts", async (req, res) => {
   try {
-    const result = await pool.query("SELECT id, username FROM users");
+    const result = await pool.query(
+      "SELECT id, username, profile_picture FROM users"
+    );
+   
     const contacts = result.rows;
     res.json({ contacts });
   } catch (error) {
