@@ -115,7 +115,7 @@ router.get(
 
     try {
       const savedJobs = await pool.query(
-        `SELECT jobs.job_id, jobs.title, jobs.description, jobs.created_at, jobs.type, jobs.salary, jobs.skills, jobs.location, jobs.experience_level, saved_jobs.saved_at 
+        `SELECT jobs.id, jobs.title, jobs.description, jobs.created_at, jobs.type, jobs.salary, jobs.skills, jobs.location, jobs.experience_level, saved_jobs.saved_at 
        FROM saved_jobs 
        JOIN jobs ON saved_jobs.job_id = jobs.id 
        WHERE saved_jobs.user_id = $1
