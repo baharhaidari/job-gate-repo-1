@@ -131,8 +131,7 @@ export default function FindTalents() {
             >
               <img
                 src={
-                  `https://job-gate-repo-1-2.onrender.com/${talent.profile_picture}` ||
-                  "default-image-url"
+                  `https://job-gate-repo-1-2.onrender.com/${talent.profile_picture}` 
                 }
                 alt={talent.fullname}
                 className="w-full h-48 object-cover"
