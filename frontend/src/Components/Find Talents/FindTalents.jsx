@@ -1,209 +1,3 @@
-// import { useState, useEffect, useCallback } from "react";
-// import axios from "axios";
-// import { FaSearch } from "react-icons/fa";
-// import { AiOutlineFilter, AiOutlineUser } from "react-icons/ai";
-// import debounce from "lodash/debounce";
-// import Chat from "./Chat";
-// import { useSelector } from "react-redux";
-
-// export default function FindTalents() {
-//   const [searchQuery, setSearchQuery] = useState("");
-//   const [filter, setFilter] = useState("all");
-//   const [talents, setTalents] = useState([]);
-//   const [initialTalents, setInitialTalents] = useState([]);
-//   const [selectedTalent, setSelectedTalent] = useState(null);
-//   const [isProfileModalOpen, setProfileModalOpen] = useState(false);
-//   const [isMessageModalOpen, setMessageModalOpen] = useState(false);
-
-// const currentUser = useSelector((state) => state.auth.user);
-// const currentUserId = currentUser ? currentUser.id : null;
-// const token = localStorage.getItem("token");
-
-//   useEffect(() => {
-//     // Fetch all talents on component mount
-//     async function fetchTalents() {
-//       try {
-//         const response = await axios.get("http://localhost:5000/api/talents", {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//           },
-//         });
-//         setTalents(response.data);
-//         setInitialTalents(response.data);
-//       } catch (error) {
-//         console.error("Error fetching talents", error);
-//       }
-//     }
-//     fetchTalents();
-//   }, [token]);
-
-//   // Define the debounced search function
-//   const debouncedSearch = useCallback(
-//     debounce(async (query) => {
-//       try {
-//         const response = await axios.get(
-//           "http://localhost:5000/api/talents/search",
-//           {
-//             headers: {
-//               Authorization: `Bearer ${token}`,
-//             },
-//             params: { name: query },
-//           }
-//         );
-//         setTalents(response.data);
-//       } catch (error) {
-//         console.error("Error searching talents", error);
-//       }
-//     }, 50),
-//     [token]
-//   );
-
-//   // Handle search input change
-//   const handleSearchInputChange = (e) => {
-//     const query = e.target.value.trim();
-//     setSearchQuery(query);
-//     if (query) {
-//       debouncedSearch(query);
-//     } else {
-//       // Reset talents to the initial list when search query is cleared
-//       setTalents(initialTalents);
-//     }
-//   };
-
-//   // Handle filter toggle
-//   const handleFilterToggle = () => {
-//     setFilter((prevFilter) => (prevFilter === "all" ? "featured" : "all"));
-//   };
-
-//   const openProfileModal = (talent) => {
-//     setSelectedTalent(talent);
-//     setProfileModalOpen(true);
-//   };
-
-//   const closeProfileModal = () => {
-//     setProfileModalOpen(false);
-//   };
-
-//   const openMessageModal = (talent) => {
-//     setSelectedTalent(talent);
-//     setMessageModalOpen(true);
-//   };
-
-//   return (
-//     <section className="flex flex-col items-center justify-center gap-14 py-20">
-//       <h1 className="heading text-slate-700 font-semibold capitalize">
-//         Find <span className="text-green-700">Talents</span>
-//       </h1>
-
-//       <div className="w-full">
-//         <div className="flex flex-col md:flex-row gap-6 mb-12">
-//           <div className="relative w-full md:w-2/3">
-//             <input
-//               type="text"
-//               placeholder="Search talents by name, skills, etc."
-//               value={searchQuery}
-//               onChange={handleSearchInputChange}
-//               className="w-full py-3 pl-10 pr-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
-//             />
-//             <FaSearch className="absolute left-3 top-3 text-gray-500 cursor-pointer" />
-//           </div>
-
-//           <div className="relative w-full md:w-1/3">
-//             <button
-//               onClick={handleFilterToggle}
-//               className="w-full py-3 px-4 border border-gray-300 rounded-lg bg-green-700 text-white flex items-center justify-center gap-2 hover:bg-green-800"
-//             >
-//               <AiOutlineFilter />
-//               {filter === "all" ? "Show Featured" : "Show All"}
-//             </button>
-//           </div>
-//         </div>
-
-//         {/* Talents Grid */}
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-//           {talents.map((talent) => (
-//             <div
-//               key={talent.id}
-//               className="relative bg-white rounded-lg shadow-lg overflow-hidden"
-//             >
-//               <img
-//                 src={
-//                   `http://localhost:5000/${talent.profile_picture}` ||
-//                   "default-image-url"
-//                 }
-//                 alt={talent.fullname}
-//                 className="w-full h-48 object-cover"
-//               />
-//               <div className="p-6">
-//                 <h3 className="text-xl font-semibold text-slate-800 mb-2">
-//                   {talent.fullname}
-//                 </h3>
-//                 <p className="text-gray-600 mb-2">
-//                   <strong>Location:</strong> {talent.location}
-//                 </p>
-//                 {/* <p className="text-gray-600 mb-2">
-//                   <strong>Profile:</strong> {talent.profile_description}
-//                 </p> */}
-//                 <p className="text-gray-600">
-//                   <strong>Skills:</strong> {talent.skills.join(", ")}
-//                 </p>
-
-//                 {/* View Profile and Message Buttons */}
-//                 <div className="flex justify-end gap-3 mt-4">
-//                   <button
-//                     onClick={() => openProfileModal(talent)}
-//                     className="bg-blue-600 text-white px-4 py-2 rounded-lg"
-//                   >
-//                     View Profile
-//                   </button>
-//                   <button
-//                     onClick={() => openMessageModal(talent)}
-//                     className="bg-green-600 text-white px-4 py-2 rounded-lg"
-//                   >
-//                     Message
-//                   </button>
-//                 </div>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-
-//         {isProfileModalOpen && selectedTalent && (
-//           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-//             <div className="bg-white p-8 rounded-lg shadow-lg w-2/4">
-//               <h2 className="text-2xl font-semibold mb-4">
-//                 {selectedTalent.fullname}
-//               </h2>
-//               <p>
-//                 <strong>Bio:</strong> {selectedTalent.profile_description}
-//               </p>
-//               <p>
-//                 <strong>Location:</strong> {selectedTalent.location}
-//               </p>
-//               <p>
-//                 <strong>Skills:</strong> {selectedTalent.skills.join(", ")}
-//               </p>
-//               <button
-//                 onClick={closeProfileModal}
-//                 className="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg"
-//               >
-//                 Close
-//               </button>
-//             </div>
-//           </div>
-//         )}
-
-//         {/* Message Modal */}
-//         {isMessageModalOpen && selectedTalent && (
-// <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-//   <Chat currentUser={currentUser} selectedTalent={selectedTalent} />
-// </div>
-//         )}
-//       </div>
-//     </section>
-//   );
-// }
-
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { FaSearch } from "react-icons/fa";
@@ -231,7 +25,7 @@ export default function FindTalents() {
   useEffect(() => {
     async function fetchTalents() {
       try {
-        const response = await axios.get("http://localhost:5000/api/talents", {
+        const response = await axios.get("https://job-gate-repo-1-2.onrender.com/api/talents", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -249,7 +43,7 @@ export default function FindTalents() {
     debounce(async (query) => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/talents/search",
+          "https://job-gate-repo-1-2.onrender.com/api/talents/search",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -337,7 +131,7 @@ export default function FindTalents() {
             >
               <img
                 src={
-                  `http://localhost:5000/${talent.profile_picture}` ||
+                  `https://job-gate-repo-1-2.onrender.com/${talent.profile_picture}` ||
                   "default-image-url"
                 }
                 alt={talent.fullname}
