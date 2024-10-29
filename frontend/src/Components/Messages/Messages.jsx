@@ -5,7 +5,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import axiosInstance from "../../Config/axiosConfig";
 
-const socket = io("http://localhost:5000", {
+const socket = io("https://job-gate-repo-1-2.onrender.com", {
   auth: {
     token: localStorage.getItem("token") || "",
   },
@@ -118,7 +118,7 @@ export default function Messages() {
                   onClick={() => setSelectedChat(contact)}
                 >
                   <img
-                    src={contact.avatar || "/default-avatar.png"}
+                    src={`https://job-gate-repo-1-2.onrender.com/${contact.profile_picture}` || "/default-avatar.png"}
                     alt={contact.username}
                     className="w-12 h-12 rounded-full object-cover"
                   />
@@ -136,7 +136,7 @@ export default function Messages() {
             <>
               <div className="flex items-center p-4 border-b border-gray-300">
                 <img
-                  src={selectedChat.avatar || "/default-avatar.png"}
+                  src={`https://job-gate-repo-1-2.onrender.com/${selectedChat.profile_picture}`}
                   alt={selectedChat.username}
                   className="w-12 h-12 rounded-full object-cover"
                 />
